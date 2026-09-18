@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Create account | {{ service_brand_name }}{% endblock %}
+{% block content %}
+<section>
+    <h1>Create a client account</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Create account</button>
+    </form>
+    <p><a href="{% url 'accounts:login' %}">Already have an account? Sign in</a></p>
+</section>
+{% endblock %}

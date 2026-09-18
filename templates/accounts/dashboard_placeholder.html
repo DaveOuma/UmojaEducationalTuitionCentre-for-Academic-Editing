@@ -1,21 +1,11 @@
 {% extends "base.html" %}
-
-{% block title %}Dashboard | Umoja Academic & Scientific Editing{% endblock %}
-
+{% block title %}Dashboard | {{ service_brand_name }}{% endblock %}
 {% block content %}
-
 <section>
     <h1>Dashboard</h1>
-
-    <p>
-        Welcome,
-        {{ request.user.get_full_name|default:request.user.email }}.
-    </p>
-
-    <p>
-        Your role:
-        <strong>{{ role_label }}</strong>
-    </p>
+    <p>Signed in as {{ request.user.email }}</p>
+    <p>Role: <strong>{{ role_label }}</strong></p>
+    <p>The {{ role_label|lower }} dashboard is built in a later phase. This placeholder confirms the login and
+        role-routing flow works end to end.</p>
 </section>
-
 {% endblock %}

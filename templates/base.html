@@ -1,5 +1,4 @@
 {% load static %}
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,55 +6,64 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>
-        {% block title %}Umoja Academic & Scientific Editing{% endblock %}
-    </title>
+    <title>{% block title %}{{ service_brand_name }}{% endblock %}</title>
+    <meta name="description" content="{{ service_brand_name }} — professional academic and scientific editing.">
 
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    {# Pinned version — bump deliberately, don't auto-track "latest".
+    Add the official Subresource Integrity hash for this exact version
+    from https://htmx.org/docs/#installing before deploying. #}
+    <script src="https://unpkg.com/htmx.org@2.0.3" crossorigin="anonymous"></script>
 
     {% block extra_css %}{% endblock %}
 </head>
 
-<body>
+<body hx-headers='{"X-Requested-With": "XMLHttpRequest"}'>
+    <script>
+        // HTMX must send Django's CSRF token on every non-GET request.
+        document.body.addEventListener('htmx:configRequest', (event) => {
+            event.detail.headers['X-CSRFToken'] = document.cookie
+                .split('; ')
+                .find((row) => row.startsWith('csrftoken='))
+                ?.split('=')[1];
+        });
+    </script>
 
     <header>
         <nav>
-            <a href="/">Umoja Academic & Scientific Editing</a>
+            <a href="/">{{ service_brand_name }}</a>
 
             {% if user.is_authenticated %}
-            <a href="{% url 'accounts:dashboard_redirect' %}">
-                Dashboard
-            </a>
-
-            <a href="{% url 'accounts:logout' %}">
-                Logout
-            </a>
+            <a href="{% url 'accounts:dashboard_redirect' %}">Dashboard</a>
+            <form method="post" action="{% url 'accounts:logout' %}" class="nav-logout">
+                {% csrf_token %}
+                <button type="submit">Logout</button>
+            </form>
             {% else %}
-            <a href="{% url 'accounts:login' %}">
-                Login
-            </a>
-
-            <a href="{% url 'accounts:signup' %}">
-                Sign Up
-            </a>
+            <a href="{% url 'accounts:login' %}">Login</a>
+            <a href="{% url 'accounts:signup' %}">Sign Up</a>
             {% endif %}
         </nav>
     </header>
 
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li class="{{ message.tags }}">{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
     <main>
-        {% block content %}
-        {% endblock %}
+        {% block content %}{% endblock %}
     </main>
 
     <footer>
-        <p>
-            &copy; {% now "Y" %} Umoja Educational Tuition Centre.
-            All rights reserved.
-        </p>
+        <p>&copy; {% now "Y" %} {{ business_name }}. All rights reserved.</p>
     </footer>
 
     {% block extra_js %}{% endblock %}
-
 </body>
 
 </html>

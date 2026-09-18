@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Sign in | {{ service_brand_name }}{% endblock %}
+{% block content %}
+<section>
+    <h1>Sign in</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Sign in</button>
+    </form>
+    <p><a href="{% url 'accounts:signup' %}">Create a client account</a></p>
+</section>
+{% endblock %}
