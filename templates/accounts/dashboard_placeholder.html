@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard | Umoja Academic & Scientific Editing{% endblock %}
+
+{% block content %}
+
+<section>
+    <h1>Dashboard</h1>
+
+    <p>
+        Welcome,
+        {{ request.user.get_full_name|default:request.user.email }}.
+    </p>
+
+    <p>
+        Your role:
+        <strong>{{ role_label }}</strong>
+    </p>
+</section>
+
+{% endblock %}
