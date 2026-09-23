@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Confidentiality Policy | {{ service_brand_name }}{% endblock %}
+{% block main_class %}site-wide{% endblock %}
+{% block content %}
+<section class="legal-page">
+    <h1>Confidentiality Policy</h1>
+    <p>Last updated: {% now "F Y" %}</p>
+
+    <p>
+        We understand that manuscripts submitted for editing are often unpublished research.
+        We take the following measures to protect that confidentiality:
+    </p>
+    <ul>
+        <li>Documents are stored in private storage, not published or publicly accessible.</li>
+        <li>Access to your documents is limited to you, your assigned editor, and staff
+            directly involved in your assignment.</li>
+        <li>Downloads are authenticated and access is checked against your account and
+            assignment, not by a guessable or shared link.</li>
+        <li>We log document access for accountability.</li>
+    </ul>
+    <p>
+        No system is completely secure. We implement the measures above in good faith, and
+        we will disclose to affected clients if we become aware of unauthorized access to
+        their documents.
+    </p>
+    <h2>Contact</h2>
+    <p>Questions about how your documents are handled can be sent to {{ support_email }}.</p>
+</section>
+{% endblock %}

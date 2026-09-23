@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Refund and Cancellation Policy | {{ service_brand_name }}{% endblock %}
+{% block main_class %}site-wide{% endblock %}
+{% block content %}
+<section class="legal-page">
+    <h1>Refund & Cancellation Policy</h1>
+    <p>Last updated: {% now "F Y" %}</p>
+
+    <h2>Before work begins</h2>
+    <p>
+        You may cancel an accepted quote before editing begins for a full refund of any
+        payment already made.
+    </p>
+
+    <h2>After work begins</h2>
+    <p>
+        Once an editor has begun work on your manuscript, cancellation is assessed based on
+        the proportion of work completed. Contact us and we will confirm what, if any,
+        refund applies to your specific assignment.
+    </p>
+
+    <h2>Revisions</h2>
+    <p>
+        If the delivered work does not meet the requirements you provided at submission, you
+        may request a revision. Revisions are not unlimited and are assessed case by case
+        against your original instructions.
+    </p>
+
+    <h2>Contact</h2>
+    <p>To request a cancellation or refund, contact {{ support_email }}.</p>
+</section>
+{% endblock %}

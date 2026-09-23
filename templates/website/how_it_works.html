@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}How It Works | {{ service_brand_name }}{% endblock %}
+{% block main_class %}site-wide{% endblock %}
+{% block content %}
+<section>
+    <h1>How it works</h1>
+    <div class="card-grid">
+        <div class="card">
+            <h3>1. Submit</h3>
+            <p>Send us your manuscript and any journal or formatting guidelines.</p>
+        </div>
+        <div class="card">
+            <h3>2. Quote</h3>
+            <p>We review the document and send a quote based on word count and service level.</p>
+        </div>
+        <div class="card">
+            <h3>3. Payment</h3>
+            <p>Once you accept the quote, payment is processed securely before work begins.</p>
+        </div>
+        <div class="card">
+            <h3>4. Editing</h3>
+            <p>Your assigned editor works on the manuscript, with a quality review before delivery.</p>
+        </div>
+        <div class="card">
+            <h3>5. Delivery</h3>
+            <p>You receive the edited manuscript, a clean copy, and an editing report.</p>
+        </div>
+        <div class="card">
+            <h3>6. Revisions</h3>
+            <p>Request revisions if the delivered work doesn't meet the agreed requirements.</p>
+        </div>
+    </div>
+    <p><a href="{% url 'website:request_a_quote' %}">Request a quote to get started &rarr;</a></p>
+</section>
+{% endblock %}

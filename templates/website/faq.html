@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}FAQ | {{ service_brand_name }}{% endblock %}
+{% block main_class %}site-wide{% endblock %}
+{% block content %}
+<section>
+    <h1>Frequently Asked Questions (FAQ)</h1>
+    <dl>
+        <div class="faq-item">
+            <dt>How long does editing take?</dt>
+            <dd>Turnaround depends on word count and service level. We confirm a delivery date when we send your quote.
+            </dd>
+        </div>
+        <div class="faq-item">
+            <dt>Is my manuscript kept confidential?</dt>
+            <dd>Yes. Manuscripts are stored privately and access is limited to you and your assigned editor. See our <a
+                    href="{% url 'website:confidentiality' %}">confidentiality policy</a>.</dd>
+        </div>
+        <div class="faq-item">
+            <dt>What citation styles do you support?</dt>
+            <dd>APA, MLA, Chicago, Harvard, Vancouver, IEEE, and others on request.</dd>
+        </div>
+        <div class="faq-item">
+            <dt>Can I request revisions?</dt>
+            <dd>Yes, within the conditions described at delivery. See our <a
+                    href="{% url 'website:refund_cancellation' %}">refund and cancellation policy</a>.</dd>
+        </div>
+        <div class="faq-item">
+            <dt>How do I pay?</dt>
+            <dd>Payment is processed securely after you accept a quote and before editing begins.</dd>
+        </div>
+    </dl>
+</section>
+{% endblock %}

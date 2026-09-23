@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}For Researchers | {{ service_brand_name }}{% endblock %}
+{% block main_class %}site-wide{% endblock %}
+{% block content %}
+<section>
+    <h1>For Researchers</h1>
+    <p>
+        Preparing a manuscript for journal submission involves more than correcting grammar.
+        We review structure, clarity, and consistency with your target journal's guidelines,
+        so your research reads clearly to reviewers and readers alike.
+    </p>
+    <h2>What we edit</h2>
+    <ul>
+        <li>Journal manuscripts, before first submission or after reviewer comments</li>
+        <li>Research proposals and grant applications</li>
+        <li>Conference papers and academic presentations</li>
+        <li>Reference and citation formatting, to your required style</li>
+    </ul>
+    <p><a href="{% url 'website:request_a_quote' %}">Request a quote for your manuscript &rarr;</a></p>
+</section>
+{% endblock %}

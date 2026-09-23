@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}Privacy Policy | {{ service_brand_name }}{% endblock %}
+{% block main_class %}site-wide{% endblock %}
+{% block content %}
+<section class="legal-page">
+    <h1>Privacy Policy</h1>
+    <p>Last updated: {% now "F Y" %}</p>
+
+    <h2>Information we collect</h2>
+    <p>
+        We collect the information you provide when creating an account or submitting an
+        assignment: your name, email address, institutional details where relevant, and the
+        documents you upload for editing.
+    </p>
+
+    <h2>How we use it</h2>
+    <p>
+        We use your information to provide the editing service you request: to communicate
+        about your assignment, process payment, assign an editor, and deliver completed work.
+        We do not sell your personal information.
+    </p>
+
+    <h2>Document handling</h2>
+    <p>
+        Manuscripts and supporting documents are stored privately and access is limited to
+        you and staff directly involved in your assignment. See our
+        <a href="{% url 'website:confidentiality' %}">Confidentiality Policy</a> for detail
+        on how document access is controlled.
+    </p>
+
+    <h2>Contact</h2>
+    <p>Questions about this policy can be sent to {{ support_email }}.</p>
+</section>
+{% endblock %}

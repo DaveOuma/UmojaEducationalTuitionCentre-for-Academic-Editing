@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}For Universities | {{ service_brand_name }}{% endblock %}
+{% block main_class %}site-wide{% endblock %}
+{% block content %}
+<section>
+    <h1>For Universities</h1>
+    <p>
+        We support departments and faculty with editing for research output at scale —
+        journal manuscripts, institutional reports, and faculty publications.
+        Institutional accounts allow multiple staff and researchers to submit assignments
+        under one organization.
+    </p>
+    <h2>Institutional accounts</h2>
+    <p>
+        Create an account for your department or institution, and add staff and researchers
+        as members. Contact us to set up an institutional account for your organization.
+    </p>
+    <p><a href="{% url 'website:contact' %}">Contact us about institutional accounts &rarr;</a></p>
+</section>
+{% endblock %}

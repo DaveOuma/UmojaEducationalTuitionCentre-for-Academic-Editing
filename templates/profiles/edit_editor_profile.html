@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}My profile | {{ service_brand_name }}{% endblock %}
+{% block content %}
+<section>
+    <h1>My editor profile</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save</button>
+    </form>
+</section>
+{% endblock %}

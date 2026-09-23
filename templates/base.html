@@ -32,10 +32,18 @@
 
     <header>
         <nav>
-            <a href="/">{{ service_brand_name }}</a>
+            <a href="{% url 'website:home' %}">{{ service_brand_name }}</a>
+            <a href="{% url 'website:services' %}">Services</a>
+            <a href="{% url 'website:pricing' %}">Pricing</a>
+            <a href="{% url 'website:request_a_quote' %}">Request a Quote</a>
 
             {% if user.is_authenticated %}
             <a href="{% url 'accounts:dashboard_redirect' %}">Dashboard</a>
+            {% if user.is_client %}
+            <a href="{% url 'profiles:edit_client_profile' %}">My Profile</a>
+            {% elif user.is_editor %}
+            <a href="{% url 'profiles:edit_editor_profile' %}">My Profile</a>
+            {% endif %}
             <form method="post" action="{% url 'accounts:logout' %}" class="nav-logout">
                 {% csrf_token %}
                 <button type="submit">Logout</button>
@@ -55,7 +63,7 @@
     </ul>
     {% endif %}
 
-    <main>
+    <main class="{% block main_class %}{% endblock %}">
         {% block content %}{% endblock %}
     </main>
 

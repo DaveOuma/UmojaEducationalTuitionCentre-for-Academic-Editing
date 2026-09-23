@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Subject Areas | {{ service_brand_name }}{% endblock %}
+{% block main_class %}site-wide{% endblock %}
+{% block content %}
+<section>
+    <h1>Subject Areas</h1>
+    <p>Our editors cover a range of academic disciplines.</p>
+    {% if subject_areas %}
+    <div class="card-grid">
+        {% for area in subject_areas %}
+        <div class="card">
+            <h3>{{ area.name }}</h3>
+            {% if area.description %}<p>{{ area.description }}</p>{% endif %}
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <p>Subject areas will be listed here shortly.</p>
+    {% endif %}
+</section>
+{% endblock %}

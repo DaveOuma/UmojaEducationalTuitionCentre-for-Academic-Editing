@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Pricing | {{ service_brand_name }}{% endblock %}
+{% block main_class %}site-wide{% endblock %}
+{% block content %}
+<section>
+    <h1>Pricing</h1>
+    <p>
+        Pricing depends on word count, service level, and turnaround time. Request a quote
+        and we will review your manuscript and send an exact price before any work begins:
+        no payment is required until you accept the quote.
+    </p>
+    <p>See current service pricing models on the <a href="{% url 'website:services' %}">Services</a> page.</p>
+    <p><a href="{% url 'website:request_a_quote' %}">Request a quote &rarr;</a></p>
+</section>
+{% endblock %}

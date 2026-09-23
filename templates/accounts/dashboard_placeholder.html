@@ -5,7 +5,14 @@
     <h1>Dashboard</h1>
     <p>Signed in as {{ request.user.email }}</p>
     <p>Role: <strong>{{ role_label }}</strong></p>
-    <p>The {{ role_label|lower }} dashboard is built in a later phase. This placeholder confirms the login and
-        role-routing flow works end to end.</p>
+
+    {% if request.user.is_client %}
+    <p><a href="{% url 'profiles:edit_client_profile' %}">Edit my profile</a></p>
+    {% elif request.user.is_editor %}
+    <p><a href="{% url 'profiles:edit_editor_profile' %}">Edit my profile</a></p>
+    {% endif %}
+
+    <p>The {{ role_label|lower }} dashboard is built in a later phase. This placeholder confirms the login,
+        role-routing, and profile-editing flow works end to end.</p>
 </section>
 {% endblock %}

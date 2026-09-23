@@ -60,8 +60,11 @@ THIRD_PARTY_APPS = [
 
 LOCAL_APPS = [
     "accounts",
-    # "organizations", "assignments", "documents", "payments",
-    # "messaging", "website" are added in later phases.
+    "profiles",
+    "organizations",
+    "website",
+    # "assignments", "documents", "payments", "messaging" are added
+    # in later phases.
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -133,9 +136,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LOGIN_URL = "accounts:login"
 LOGIN_REDIRECT_URL = "accounts:dashboard_redirect"
-# Points at accounts:login (not "website:home") until Phase 3 adds the
-# public website app — avoids a NoReverseMatch on logout in the meantime.
-LOGOUT_REDIRECT_URL = "accounts:login"
+LOGOUT_REDIRECT_URL = "website:home"
 
 # ---------------------------------------------------------------------------
 # Internationalization

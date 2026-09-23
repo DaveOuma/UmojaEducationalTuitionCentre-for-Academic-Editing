@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}About | {{ service_brand_name }}{% endblock %}
+{% block main_class %}site-wide{% endblock %}
+{% block content %}
+<section>
+    <h1>About {{ business_name }}</h1>
+    <p>
+        {{ service_brand_name }} is an academic and scientific editing service operated by
+        {{ business_name }}, an independent education and academic services business based in Kenya.
+        We work with individual researchers as well as institutional clients across Africa,
+        Japan, South Korea, China, the Middle East, and other international research markets.
+    </p>
+    <p>
+        {{ business_name }} is an independent business and is not affiliated with, endorsed by,
+        or partnered with any university, publisher, or academic institution unless explicitly
+        stated and verified.
+    </p>
+    <h2>What we do</h2>
+    <p>
+        We provide academic proofreading, editing, and manuscript preparation services for
+        theses, dissertations, journal submissions, grant proposals, and research reports.
+        Every assignment is reviewed for language, structure, and adherence to the citation
+        style or journal guidelines provided.
+    </p>
+</section>
+{% endblock %}

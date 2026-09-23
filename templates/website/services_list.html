@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}Services | {{ service_brand_name }}{% endblock %}
+{% block main_class %}site-wide{% endblock %}
+{% block content %}
+<section>
+    <h1>Services</h1>
+
+    <div class="category-filters">
+        <a href="{% url 'website:services' %}" class="{% if not selected_category %}active{% endif %}">All</a>
+        {% for value, label in categories %}
+        <a href="{% url 'website:services' %}?category={{ value|lower }}"
+            class="{% if selected_category == value %}active{% endif %}">{{ label }}</a>
+        {% endfor %}
+    </div>
+
+    {% if services %}
+    <div class="card-grid">
+        {% for service in services %}
+        <div class="card">
+            <h3>{{ service.name }}</h3>
+            <p>{{ service.description }}</p>
+            {% if service.minimum_price %}
+            <p><strong>From {{ service.minimum_price }}</strong></p>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <p>No services are listed in this category yet.</p>
+    {% endif %}
+
+    <p><a href="{% url 'website:request_a_quote' %}">Request a quote &rarr;</a></p>
+</section>
+{% endblock %}

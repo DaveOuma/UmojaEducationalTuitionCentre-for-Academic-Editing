@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}Terms of Service | {{ service_brand_name }}{% endblock %}
+{% block main_class %}site-wide{% endblock %}
+{% block content %}
+<section class="legal-page">
+    <h1>Terms of Service</h1>
+    <p>Last updated: {% now "F Y" %}</p>
+
+    <h2>The service</h2>
+    <p>
+        {{ business_name }} provides academic and scientific editing services under the
+        {{ service_brand_name }} brand. By creating an account or submitting an assignment,
+        you agree to these terms.
+    </p>
+
+    <h2>Assignments and quotes</h2>
+    <p>
+        A quote is issued after we review your manuscript. Work begins once you accept the
+        quote and payment is confirmed. Estimated delivery dates are confirmed at that point.
+    </p>
+
+    <h2>Client responsibilities</h2>
+    <p>
+        You are responsible for the accuracy of the content you submit and for holding any
+        rights necessary to have it edited. Provide accurate instructions and citation/style
+        requirements so we can meet them.
+    </p>
+
+    <h2>Limitations</h2>
+    <p>
+        We provide language, structural, and citation editing. We do not guarantee acceptance
+        by any journal, publisher, or institution, and we do not claim partnership or
+        affiliation with any university or publisher unless explicitly stated.
+    </p>
+
+    <h2>Contact</h2>
+    <p>Questions about these terms can be sent to {{ support_email }}.</p>
+</section>
+{% endblock %}

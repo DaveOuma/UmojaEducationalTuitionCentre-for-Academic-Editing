@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %}{{ service_brand_name }} — Academic & Scientific Editing{% endblock %}
+{% block main_class %}site-wide{% endblock %}
+{% block content %}
+<section class="hero">
+    <h1>Professional academic and scientific editing</h1>
+    <p class="lede">
+        {{ service_brand_name }} helps researchers, postgraduate students, and academic
+        departments prepare manuscripts, theses, and grant proposals for submission —
+        with clear communication and secure document handling throughout.
+    </p>
+    <div class="cta-buttons">
+        <a href="{% url 'website:request_a_quote' %}" class="primary">Request an Editing Quote</a>
+        <a href="{% url 'website:services' %}" class="secondary">View Services</a>
+    </div>
+</section>
+
+<section>
+    <h2>Who we work with</h2>
+    <div class="card-grid">
+        <div class="card">
+            <h3>Researchers</h3>
+            <p>Manuscript editing for journal submission, from language polishing to full structural review.</p>
+            <a href="{% url 'website:for_researchers' %}">Learn more &rarr;</a>
+        </div>
+        <div class="card">
+            <h3>Universities</h3>
+            <p>Editing support for departments, faculty, and institutional research output.</p>
+            <a href="{% url 'website:for_universities' %}">Learn more &rarr;</a>
+        </div>
+        <div class="card">
+            <h3>Students</h3>
+            <p>Thesis and dissertation editing, from proofreading through full academic review.</p>
+            <a href="{% url 'website:for_students' %}">Learn more &rarr;</a>
+        </div>
+    </div>
+</section>
+
+<section>
+    <h2>How it works</h2>
+    <p>Submit your manuscript, receive a quote, and work directly with an assigned editor through to final delivery.</p>
+    <a href="{% url 'website:how_it_works' %}">See the full process &rarr;</a>
+</section>
+
+<section>
+    <h2>Confidentiality and document handling</h2>
+    <p>
+        Manuscripts are handled as confidential, unpublished work. Documents are stored
+        privately and access is limited to the client and their assigned editor.
+        Read our <a href="{% url 'website:confidentiality' %}">confidentiality policy</a> for details.
+    </p>
+</section>
+{% endblock %}

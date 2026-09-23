@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}For Students | {{ service_brand_name }}{% endblock %}
+{% block main_class %}site-wide{% endblock %}
+{% block content %}
+<section>
+    <h1>For Students</h1>
+    <p>
+        Thesis and dissertation editing, from proofreading through a full academic review of
+        structure and argument. We work with your citation style and formatting requirements
+        throughout.
+    </p>
+    <h2>What we edit</h2>
+    <ul>
+        <li>Undergraduate and postgraduate theses</li>
+        <li>Dissertations</li>
+        <li>Research reports and academic presentations</li>
+        <li>English language polishing for non-native English speakers</li>
+    </ul>
+    <p><a href="{% url 'website:request_a_quote' %}">Request a quote for your thesis &rarr;</a></p>
+</section>
+{% endblock %}
