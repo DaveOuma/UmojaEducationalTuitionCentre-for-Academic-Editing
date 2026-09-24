@@ -171,7 +171,7 @@ Run `python manage.py setup_groups` after migrating to create the
 `Editors`, `Senior Editors`, and `Administrators` groups referenced by
 later phases.
 
-## Profiles & organizations (Phase 2)
+## Profiles and organizations (Phase 2)
 
 `ClientProfile` and `EditorProfile` are 1:1 with `User`, created on
 first visit to `/profiles/client/` or `/profiles/editor/` (whichever
