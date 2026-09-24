@@ -1,9 +1,10 @@
-# Umoja Academic & Scientific Editing — Platform
+# Umoja Academic and Scientific Editing: Platform
 
 Backend for Umoja Educational Tuition Centre's academic and scientific
 editing service. Built in phases; this repo currently contains
 **Phase 1 (accounts/roles), Phase 2 (client/editor profiles,
-organizations), and Phase 3 (public website) — all DONE.**
+organizations), Phase 3 (public website), and Phase 4 (assignment
+workflow): all DONE.**
 
 ## Local development setup
 
@@ -12,7 +13,7 @@ You'll need, installed on your machine:
 - **Python 3.12+**
 - **PostgreSQL 15+** running locally (or a connection string to one)
 - **Redis** (used from a later phase onward, but installing it now
-  saves a step later — `redis-server` on most package managers)
+  saves a step later; `redis-server` on most package managers)
 - **git**
 
 Steps:
@@ -47,13 +48,13 @@ Visit `http://127.0.0.1:8000/accounts/login/` to sign in, or
 Run the tests with:
 
 ```bash
-python manage.py test accounts profiles organizations website
+python manage.py test accounts profiles organizations website assignments
 ```
 
 ## Full intended project structure
 
 This is where the project is headed across all 18 phases (see the
-spec's phase order). Apps marked `← later` don't exist yet — they're
+spec's phase order). Apps marked `← later` don't exist yet; they're
 listed so the layout makes sense as it grows, and so you can see
 where new code will land before it's written.
 
@@ -61,17 +62,17 @@ where new code will land before it's written.
 umoja/
 ├── config/                      Django settings, root URLs, WSGI/ASGI
 │   ├── settings/
-│   │   ├── base.py              Shared settings — no secrets, no env-specific values
+│   │   ├── base.py              Shared settings; no secrets, no env-specific values
 │   │   ├── development.py       Local dev overrides
-│   │   └── production.py        Production overrides — HTTPS, HSTS, S3 storage
+│   │   └── production.py        Production overrides: HTTPS, HSTS, S3 storage
 │   ├── context_processors.py    Injects business name/brand into every template
 │   ├── urls.py
 │   ├── wsgi.py
 │   └── asgi.py
 │
-├── accounts/                    Phase 1 — DONE
+├── accounts/                    Phase 1: DONE
 │   ├── models.py                Custom User: email login, role field
-│   ├── managers.py              UserManager — enforces safe role defaults
+│   ├── managers.py              UserManager; enforces safe role defaults
 │   ├── admin.py                 Role field locked behind a dedicated permission
 │   ├── forms.py                 Signup/profile forms with no role field
 │   ├── views.py                 Login, signup, role-based dashboard redirect
@@ -83,9 +84,9 @@ umoja/
 │       ├── test_forms.py
 │       └── test_views.py
 │
-├── profiles/                     Phase 2 — DONE
+├── profiles/                     Phase 2: DONE
 │   ├── models.py                ClientProfile, EditorProfile (1:1 with User)
-│   ├── forms.py                 Self-service edit forms — no `user` field
+│   ├── forms.py                 Self-service edit forms; no `user` field
 │   ├── admin.py
 │   ├── views.py                 edit_client_profile / edit_editor_profile
 │   ├── urls.py
@@ -95,7 +96,7 @@ umoja/
 │       ├── test_forms.py
 │       └── test_views.py
 │
-├── organizations/                 Phase 2 — DONE
+├── organizations/                 Phase 2: DONE
 │   ├── models.py                Organization, OrganizationMembership
 │   ├── admin.py                 membership.role gated like accounts.change_user_role
 │   ├── migrations/
@@ -103,9 +104,9 @@ umoja/
 │       ├── test_models.py
 │       └── test_admin.py
 │
-├── website/                       Phase 3 — DONE
+├── website/                       Phase 3: DONE
 │   ├── models.py                 Service, SubjectArea (admin-editable, spec 8/9)
-│   ├── forms.py                  QuoteInquiryForm — plain Form, nothing persisted
+│   ├── forms.py                  QuoteInquiryForm: plain Form, nothing persisted
 │   ├── admin.py
 │   ├── views.py                  Thin views; services_list does the category filter
 │   ├── urls.py                   Home, About, Services, legal pages, etc.
@@ -114,10 +115,19 @@ umoja/
 │       ├── test_models.py
 │       └── test_views.py
 │
-├── assignments/                  ← later (Phase 4) — Assignment, Quote
-├── documents/                    ← later (Phase 5) — AssignmentFile, private storage, versioning
-├── payments/                     ← later (Phase 10) — PaymentProvider, PaymentTransaction, Pesapal
-├── messaging/                    ← later (Phase 12) — assignment-scoped messages
+├── assignments/                   Phase 4: DONE
+│   ├── models.py                 Assignment: explicit ALLOWED_TRANSITIONS state
+│   │                             machine, transition_to(), role validation in clean()
+│   ├── admin.py                  status is read-only; transitions only via
+│   │                             generated per-status bulk actions
+│   ├── migrations/
+│   └── tests/
+│       ├── test_models.py        References, role validation, every transition edge
+│       └── test_admin.py         status locked in admin UI, actions respect the state machine
+│
+├── documents/                    ← later (Phase 5): AssignmentFile, private storage, versioning
+├── payments/                     ← later (Phase 10): PaymentProvider, PaymentTransaction, Pesapal
+├── messaging/                    ← later (Phase 12): assignment-scoped messages
 │
 ├── templates/
 │   ├── base.html                 HTMX wired in here; every page template extends this
@@ -138,10 +148,10 @@ umoja/
 │           └── confidentiality_policy.html, refund_cancellation_policy.html
 │
 ├── static/
-│   └── css/style.css             Shared stylesheet — nav, forms, messages
+│   └── css/style.css             Shared stylesheet: nav, forms, messages
 ├── manage.py
 ├── requirements.txt
-├── .env.example                  Copy to .env — never commit the real .env
+├── .env.example                  Copying to .env; never commit the real .env
 ├── .gitignore
 └── README.md
 ```
@@ -165,11 +175,11 @@ later phases.
 
 `ClientProfile` and `EditorProfile` are 1:1 with `User`, created on
 first visit to `/profiles/client/` or `/profiles/editor/` (whichever
-matches the user's role — the other returns 403). Self-service forms
+matches the user's role; the other returns 403). Self-service forms
 never expose `user`; `EditorProfile.is_active` is deliberately left
 out of the self-service form too, since it controls whether an editor
 is excluded from assignment matching entirely (an admin call, not a
-self-service toggle) — `availability_status` IS self-service, since
+self-service toggle): `availability_status` IS self-service, since
 that's day-to-day editor-managed per spec section 25.
 
 `EditorProfile.internal_rate` was deliberately deferred to Phase 9,
@@ -178,7 +188,7 @@ default vs service-specific vs org-specific vs historical-on-assignment).
 
 `Organization` / `OrganizationMembership` model institutional clients.
 `OrganizationMembership.role` (`MEMBER` / `ORG_ADMIN`) is intentionally
-separate from the platform-wide `User.role` — a platform `CLIENT` can
+separate from the platform-wide `User.role`: a platform `CLIENT` can
 be an `ORG_ADMIN` within their organization without any change to
 their platform permissions. Membership role changes are gated behind
 `organizations.change_membership_role`, the same pattern as
@@ -191,7 +201,7 @@ Editor profile photos need `MEDIA_URL`/`MEDIA_ROOT` (already set in
 ## Public website (Phase 3)
 
 `Service` and `SubjectArea` are admin-editable content models (spec
-sections 8/9/32) — new services or subject areas don't need a code
+sections 8/9/32): new services or subject areas don't need a code
 deploy. "Academic Editing" and "Scientific Editing" are not separate
 pages: `/services/` filters one listing by `Service.category` via
 `?category=academic` / `?category=scientific`, so there's one template
@@ -199,36 +209,83 @@ and one source of truth rather than duplicated markup.
 
 `/request-a-quote/` is a lightweight public inquiry form
 (`QuoteInquiryForm`, a plain `Form`, not a `ModelForm`). Submitting it
-only sends an email to `SUPPORT_EMAIL` — it deliberately does **not**
+only sends an email to `SUPPORT_EMAIL`: it deliberately does **not**
 create an `Assignment` or `Quote` record, since those models don't
 exist until Phase 4. The real flow (inquiry → assignment → documents →
 quote → payment) replaces this in later phases; for now it's
 `Inquiry → Email notification` only.
 
 Legal pages (privacy, terms, confidentiality, refund/cancellation) are
-plain templates with real starter content — written to avoid
+plain templates with real starter content: written to avoid
 overclaiming (no "100% secure", no claimed university partnerships,
 per spec section 5/35) but they are placeholder text a business would
 still want reviewed by a lawyer before relying on them, not a
 substitute for that review.
 
-No FAQ/testimonial/homepage-content CMS yet — those stay as plain
+No FAQ/testimonial/homepage-content CMS yet; those stay as plain
 templates until there's a demonstrated operational need for admins to
 edit that copy without a deploy.
 
+## Assignment workflow (Phase 4)
+
+`Assignment` is deliberately the only model this phase adds — no
+`Quote`, `Payment`, `Delivery`, `RevisionRequest`, `AssignmentFile`, or
+`AuditLog` yet (those are Phases 5 and 9-16). Ownership is
+single-editor: `assigned_editor` is a nullable FK, not a through-model,
+since multi-editor support (word-count splitting, payment allocation,
+whose deadline it is) is a real design decision to make deliberately
+later, not something to infer from adding a second FK now.
+
+Status is a 17-state machine defined in `ALLOWED_TRANSITIONS`: every
+status has an explicit entry, including the terminal ones (`COMPLETED`,
+`CANCELLED`, `DECLINED` each map to an empty set, on purpose, so
+there's no ambiguity about "reachable from most states"). The only way
+to change status is `assignment.transition_to(new_status, by_user)`,
+which raises `InvalidStatusTransition` rather than allowing an invalid
+move. `status` is never a directly-editable field anywhere, including
+in the admin; `AssignmentAdmin` generates one bulk action per status
+value straight from `ALLOWED_TRANSITIONS`, so the admin action list
+can't drift out of sync with the model's own state machine.
+
+Role correctness lives in the model, not just in a form: `clean()`
+checks that `client.role == CLIENT`, `assigned_editor.role` is `EDITOR`
+or `SENIOR_EDITOR`, and `senior_editor.role == SENIOR_EDITOR`: a
+foreign key can't express that constraint at the database level, thus,
+`save()` runs `full_clean()` on every save to enforce it regardless of
+which code path creates or edits an assignment.
+
+`client_declared_word_count` is populated from Phase 4 on.
+`system_calculated_word_count` and `billable_word_count` exist as
+nullable fields now so Phase 5's migration doesn't need to revisit
+this model, but stay unset until there's an uploaded document to
+calculate a word count from.
+
+The human-readable `reference` (`UETC-<year>-<seq>`, spec section 15)
+is auto-generated on first save. Note in the model's docstring: the
+sequence generation reads-then-writes without a database lock, so two
+assignments created in the exact same instant could theoretically race
+for the same number; acceptable at a single- or few-editor scale,
+worth revisiting with `select_for_update` if creation volume ever
+makes that race likely.
+
 ## Tests
 
-51 tests total: Phase 1's 18, Phase 2's 19, and Phase 3 adds 14 more —
-`Service`/`SubjectArea` slug generation and ordering, the
-`/services/` category filter (including an invalid category falling
-back to "all active"), a smoke test that every static page returns
-200, and the quote inquiry form: a valid submission sends exactly one
-email and an invalid one sends none.
+72 tests total. Phase 4 adds 21: reference generation and per-year
+sequencing, all six role-validation cases (client/editor/senior-editor,
+valid and invalid), every transition edge including terminal-state
+rejection and the two backward loops (quality review bouncing to
+in-progress, revision-requested looping back to in-progress), a guard
+test that fails if any `Status` value is ever added without a matching
+entry in `ALLOWED_TRANSITIONS`, and three admin tests confirming
+`status` isn't directly editable and that generated actions move valid
+assignments while skipping invalid ones.
 
 ## What's not built yet
 
-`assignments`, `documents`, `payments`, `messaging` apps; self-service
-organization views (membership is admin-managed via `/admin/` for
-now); real object storage (production.py is wired for S3-compatible
-storage but untested until Phase 5); DRF API layer; Celery workers;
-FAQ/testimonial CMS.
+`documents`, `payments`, `messaging` apps; self-service organization
+views (membership is admin-managed via `/admin/` for now); no
+client-facing assignment creation UI yet — that's Phase 6's dashboard
+work, so for now assignments are created via the admin or
+`Assignment.objects.create(...)`; real object storage (production.py
+is wired for S3-compatible storage but untested until Phase 5); DRF
+API layer; Celery workers; FAQ/testimonial CMS.

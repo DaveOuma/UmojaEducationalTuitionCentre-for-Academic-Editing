@@ -63,8 +63,8 @@ LOCAL_APPS = [
     "profiles",
     "organizations",
     "website",
-    # "assignments", "documents", "payments", "messaging" are added
-    # in later phases.
+    "assignments",
+    # "documents", "payments", "messaging" are added in later phases.
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
